@@ -30,4 +30,8 @@ public enum ReadFunction {
     public boolean isTime() {
         return this.equals(TIME);
     }
+
+    public boolean isBack() {
+        return this.equals(BACK);
+    }
 }

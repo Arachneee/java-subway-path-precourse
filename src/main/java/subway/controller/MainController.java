@@ -3,6 +3,8 @@ package subway.controller;
 
 import subway.domain.MainFunction;
 import subway.domain.ReadFunction;
+import subway.domain.Station;
+import subway.domain.StationRepository;
 import subway.util.ExceptionRoofer;
 import subway.view.InputView;
 import subway.view.OutputView;
@@ -42,8 +44,28 @@ public class MainController {
     }
 
     private void runReadFunction() {
-        outputView.printReadFunction();
-        ReadFunction readFunction = getReadFunction();
+        ExceptionRoofer.run(() -> {
+            outputView.printReadFunction();
+            ReadFunction readFunction = getReadFunction();
+
+            if (readFunction.isBack()) {
+                return;
+            }
+
+            String startStationName = inputView.readStartStation();
+            String endStationName = inputView.readEndStation();
+            Station startStation = StationRepository.findStationByName(startStationName);
+
+            if (readFunction.isDistance()) {
+                runDistanceFunction();
+            }
+
+            if (readFunction.isTime()) {
+                runTimeFunction();
+            }
+
+            // ReadFunction is Back
+        });
     }
 
     private ReadFunction getReadFunction() {
@@ -51,5 +73,13 @@ public class MainController {
             String readFunction = inputView.readFunction();
             return ReadFunction.from(readFunction);
         });
+    }
+
+    private void runDistanceFunction() {
+
+    }
+
+    private void runTimeFunction() {
+
     }
 }

@@ -20,8 +20,20 @@ public class InputView {
         return scanner.nextLine();
     }
 
+    public String readStartStation() {
+        System.out.println(System.lineSeparator() + Request.START_STATION.value);
+        return scanner.nextLine();
+    }
+
+    public String readEndStation() {
+        System.out.println(System.lineSeparator() + Request.END_STATION.value);
+        return scanner.nextLine();
+    }
+
     private enum Request {
-        FUNCTION("## 원하는 기능을 선택하세요.");
+        FUNCTION("## 원하는 기능을 선택하세요."),
+        START_STATION("## 출발역을 입력하세요."),
+        END_STATION("## 도착역을 입력하세요.");
         private final String value;
 
         Request(final String value) {
