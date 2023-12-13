@@ -1,9 +1,12 @@
 package subway.domain;
 
 import java.util.List;
+import org.jgrapht.GraphPath;
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.WeightedMultigraph;
+import subway.exception.ErrorMessage;
+import subway.exception.SubwayException;
 
 public class PathFinder {
 
@@ -36,14 +39,26 @@ public class PathFinder {
     }
 
     public static Path findShortestDistancePath(final String startStationName, final String endStationName) {
-        List<String> shortestPath = dijkstraShortestDistancePath.getPath(startStationName, endStationName).getVertexList();
+        GraphPath path = dijkstraShortestDistancePath.getPath(startStationName, endStationName);
+
+        if (path == null) {
+            throw new SubwayException(ErrorMessage.NONE_LINE);
+        }
+
+        List<String> shortestPath = path.getVertexList();
         List<Station> shortestStations = StationRepository.findAllStationByName(shortestPath);
 
         return Path.create(shortestPath);
     }
 
     public static Path findShortestTimePath(final String startStationName, final String endStationName) {
-        List<String> shortestPath = dijkstraShortestTimePath.getPath(startStationName, endStationName).getVertexList();
+        GraphPath path = dijkstraShortestTimePath.getPath(startStationName, endStationName);
+
+        if (path == null) {
+            throw new SubwayException(ErrorMessage.NONE_LINE);
+        }
+
+        List<String> shortestPath = path.getVertexList();
         List<Station> shortestStations = StationRepository.findAllStationByName(shortestPath);
 
         return Path.create(shortestPath);
