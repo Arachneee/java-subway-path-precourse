@@ -5,6 +5,8 @@ import java.util.Arrays;
 import subway.domain.Line;
 import subway.domain.LineRepository;
 import subway.domain.MainFunction;
+import subway.domain.Path;
+import subway.domain.PathFinder;
 import subway.domain.ReadFunction;
 import subway.domain.Section;
 import subway.domain.SectionRepository;
@@ -124,7 +126,7 @@ public class MainController {
     }
 
     private void runDistanceFunction(final Station startStation, final Station endStation) {
-
+        Path path = PathFinder.findShortestPath(startStation.getName(), endStation.getName());
     }
 
     private void runTimeFunction(final Station startStation, final Station endStation) {

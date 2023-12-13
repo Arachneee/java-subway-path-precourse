@@ -13,4 +13,20 @@ public class Section {
         this.distance = distance;
         this.time = time;
     }
+
+    public String  getLeftStationName() {
+        return leftStation.getName();
+    }
+
+    public String  getRightStationName() {
+        return rightStation.getName();
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public int getTime() {
+        return time;
+    }
 }

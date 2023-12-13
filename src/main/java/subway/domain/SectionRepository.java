@@ -15,5 +15,4 @@ public class SectionRepository {
     public static void addSection(Section section) {
         sections.add(section);
     }
-
 }

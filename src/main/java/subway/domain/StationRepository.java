@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import subway.exception.ErrorMessage;
 import subway.exception.SubwayException;
 
@@ -31,5 +32,11 @@ public class StationRepository {
                 .filter(station -> Objects.equals(station.getName(), name))
                 .findAny()
                 .orElseThrow(() -> new SubwayException(ErrorMessage.INVALID_STATION));
+    }
+
+    public static List<Station> findAllStationByName(final List<String> shortestPath) {
+        return shortestPath.stream()
+                .map(StationRepository::findStationByName)
+                .collect(Collectors.toList());
     }
 }
