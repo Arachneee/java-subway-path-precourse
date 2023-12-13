@@ -4,6 +4,7 @@ public enum ErrorMessage {
 
     INVALID_FUNCTION("존재하지 않는 기능입니다."),
     INVALID_STATION("존재하지 않는 역입니다."),
+    DUPLICATE_STATION("출발역과 도착역이 동일합니다."),
     INVALID_MENU_VALUE(" 가 존재하지 않습니다."),
     BLANK("입력이 비어있을 수 없습니다."),
     NOT_NUMBER("숫자가 아닙니다."),

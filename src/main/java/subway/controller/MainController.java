@@ -5,6 +5,8 @@ import subway.domain.MainFunction;
 import subway.domain.ReadFunction;
 import subway.domain.Station;
 import subway.domain.StationRepository;
+import subway.exception.ErrorMessage;
+import subway.exception.SubwayException;
 import subway.util.ExceptionRoofer;
 import subway.view.InputView;
 import subway.view.OutputView;
@@ -54,9 +56,13 @@ public class MainController {
 
             String startStationName = inputView.readStartStation();
             Station startStation = StationRepository.findStationByName(startStationName);
-            
+
             String endStationName = inputView.readEndStation();
             Station endStation = StationRepository.findStationByName(endStationName);
+
+            if (startStation.equals(endStation)) {
+                throw new SubwayException(ErrorMessage.DUPLICATE_STATION);
+            }
 
             if (readFunction.isDistance()) {
                 runDistanceFunction();
