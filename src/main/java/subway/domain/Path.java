@@ -1,6 +1,7 @@
 package subway.domain;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Path {
 
@@ -26,5 +27,19 @@ public class Path {
         }
 
         return new Path(shortestPath, distance, time);
+    }
+
+    public List<String> getStationNames() {
+        return stations.stream()
+                .map(Station::getName)
+                .collect(Collectors.toList());
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public int getTime() {
+        return time;
     }
 }

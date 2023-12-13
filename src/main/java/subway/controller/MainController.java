@@ -14,6 +14,7 @@ import subway.domain.Station;
 import subway.domain.StationRepository;
 import subway.exception.ErrorMessage;
 import subway.exception.SubwayException;
+import subway.response.PathDto;
 import subway.util.ExceptionRoofer;
 import subway.view.InputView;
 import subway.view.OutputView;
@@ -130,9 +131,13 @@ public class MainController {
 
     private void runDistanceFunction(final Station startStation, final Station endStation) {
         Path path = PathFinder.findShortestDistancePath(startStation.getName(), endStation.getName());
+        PathDto pathDto = PathDto.from(path);
+        outputView.printResult(pathDto);
     }
 
     private void runTimeFunction(final Station startStation, final Station endStation) {
         Path path = PathFinder.findShortestTimePath(startStation.getName(), endStation.getName());
+        PathDto pathDto = PathDto.from(path);
+        outputView.printResult(pathDto);
     }
 }
