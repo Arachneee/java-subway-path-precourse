@@ -15,7 +15,7 @@ public class InputView {
         scanner.close();
     }
 
-    public String readMainFunction() {
+    public String readFunction() {
         System.out.println(System.lineSeparator() + Request.FUNCTION.value);
         return scanner.nextLine();
     }

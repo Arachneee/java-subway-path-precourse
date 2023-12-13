@@ -21,4 +21,8 @@ public enum MainFunction {
                 .findFirst()
                 .orElseThrow(() -> new SubwayException(ErrorMessage.INVALID_FUNCTION));
     }
+
+    public boolean isRead() {
+        return this.equals(READ);
+    }
 }
