@@ -1,6 +1,8 @@
 package subway.controller;
 
 
+import subway.domain.MainFunction;
+import subway.util.ExceptionRoofer;
 import subway.view.InputView;
 import subway.view.OutputView;
 
@@ -16,10 +18,16 @@ public class MainController {
 
     public void run() {
         outputView.printMainFunction();
-        getMainFunction();
+        MainFunction mainFunction = getMainFunction();
 
-        String mainFunction = inputView.readMainFunction();
 
         inputView.close();
+    }
+
+    private MainFunction getMainFunction() {
+        return ExceptionRoofer.supply(() -> {
+            String mainFunction = inputView.readMainFunction();
+            return MainFunction.from(mainFunction);
+        });
     }
 }

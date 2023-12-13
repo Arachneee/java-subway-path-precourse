@@ -1,6 +1,8 @@
 package subway.domain;
 
 import java.util.Arrays;
+import subway.exception.ErrorMessage;
+import subway.exception.SubwayException;
 
 public enum MainFunction {
 
@@ -17,6 +19,6 @@ public enum MainFunction {
         return Arrays.stream(values())
                 .filter(mainFunction -> mainFunction.value.equals(value))
                 .findFirst()
-                .orElseThrow(() -> )
+                .orElseThrow(() -> new SubwayException(ErrorMessage.INVALID_FUNCTION));
     }
 }
