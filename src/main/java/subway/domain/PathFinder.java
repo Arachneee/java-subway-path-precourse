@@ -48,7 +48,7 @@ public class PathFinder {
         List<String> shortestPath = path.getVertexList();
         List<Station> shortestStations = StationRepository.findAllStationByName(shortestPath);
 
-        return Path.create(shortestPath);
+        return Path.create(shortestStations);
     }
 
     public static Path findShortestTimePath(final String startStationName, final String endStationName) {
@@ -61,6 +61,6 @@ public class PathFinder {
         List<String> shortestPath = path.getVertexList();
         List<Station> shortestStations = StationRepository.findAllStationByName(shortestPath);
 
-        return Path.create(shortestPath);
+        return Path.create(shortestStations);
     }
 }

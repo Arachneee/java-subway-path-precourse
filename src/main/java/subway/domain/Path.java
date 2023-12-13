@@ -14,7 +14,17 @@ public class Path {
         this.time = time;
     }
 
-    public static Path create(List<String> shortestPath) {
+    public static Path create(final List<Station> shortestPath) {
+        final int pathSize = shortestPath.size();
+        int distance = 0;
+        int time = 0;
 
+        for (int i = 0; i < pathSize - 1; i++) {
+            Section section = SectionRepository.findSection(shortestPath.get(i), shortestPath.get(i + 1));
+            distance += section.getDistance();
+            time += section.getTime();
+        }
+
+        return new Path(shortestPath, distance, time);
     }
 }

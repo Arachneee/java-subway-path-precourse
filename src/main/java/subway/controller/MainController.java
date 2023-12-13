@@ -110,6 +110,7 @@ public class MainController {
 
             if (readFunction.isDistance()) {
                 runDistanceFunction(startStation, endStation);
+                return;
             }
 
             if (readFunction.isTime()) {

@@ -14,6 +14,11 @@ public class Section {
         this.time = time;
     }
 
+    public boolean hasStation(final Station leftStation, final Station rightStation) {
+        return (this.leftStation.equals(leftStation) && this.rightStation.equals(rightStation))
+                || (this.leftStation.equals(rightStation) && this.rightStation.equals(leftStation));
+    }
+
     public String  getLeftStationName() {
         return leftStation.getName();
     }
