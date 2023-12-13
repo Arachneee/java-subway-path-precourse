@@ -2,6 +2,7 @@ package subway.domain;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Path {
 
@@ -16,17 +17,23 @@ public class Path {
     }
 
     public static Path create(final List<Station> shortestPath) {
+        return new Path(shortestPath, calculateDistance(shortestPath), calculateTime(shortestPath));
+    }
+
+    private static int calculateDistance(final List<Station> shortestPath) {
         final int pathSize = shortestPath.size();
-        int distance = 0;
-        int time = 0;
 
-        for (int i = 0; i < pathSize - 1; i++) {
-            Section section = SectionRepository.findSection(shortestPath.get(i), shortestPath.get(i + 1));
-            distance += section.getDistance();
-            time += section.getTime();
-        }
+        return IntStream.range(0, pathSize - 1)
+                .map(i -> SectionRepository.findSection(shortestPath.get(i), shortestPath.get(i + 1)).getDistance())
+                .sum();
+    }
 
-        return new Path(shortestPath, distance, time);
+    private static int calculateTime(final List<Station> shortestPath) {
+        final int pathSize = shortestPath.size();
+
+        return IntStream.range(0, pathSize - 1)
+                .map(i -> SectionRepository.findSection(shortestPath.get(i), shortestPath.get(i + 1)).getTime())
+                .sum();
     }
 
     public List<String> getStationNames() {

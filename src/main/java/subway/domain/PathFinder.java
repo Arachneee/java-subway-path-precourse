@@ -20,22 +20,31 @@ public class PathFinder {
         WeightedMultigraph<String, DefaultWeightedEdge> distanceGraph = new WeightedMultigraph(DefaultWeightedEdge.class);
         WeightedMultigraph<String, DefaultWeightedEdge> timeGraph = new WeightedMultigraph(DefaultWeightedEdge.class);
 
+        addStation(stations, distanceGraph, timeGraph);
+        addSection(sections, distanceGraph, timeGraph);
+
+        dijkstraShortestDistancePath = new DijkstraShortestPath(distanceGraph);
+        dijkstraShortestTimePath = new DijkstraShortestPath(timeGraph);
+    }
+
+    private static void addStation(List<Station> stations, WeightedMultigraph<String, DefaultWeightedEdge> distanceGraph,
+            WeightedMultigraph<String, DefaultWeightedEdge> timeGraph) {
         stations.forEach(station -> {
             distanceGraph.addVertex(station.getName());
             timeGraph.addVertex(station.getName());
         });
+    }
 
+    private static void addSection(List<Section> sections, WeightedMultigraph<String, DefaultWeightedEdge> distanceGraph,
+            WeightedMultigraph<String, DefaultWeightedEdge> timeGraph) {
         sections.forEach(section -> {
             distanceGraph.setEdgeWeight(
                     distanceGraph.addEdge(section.getLeftStationName(), section.getRightStationName()),
                     section.getDistance());
             timeGraph.setEdgeWeight(
-                    distanceGraph.addEdge(section.getLeftStationName(), section.getRightStationName()),
+                    timeGraph.addEdge(section.getLeftStationName(), section.getRightStationName()),
                     section.getTime());
         });
-
-        dijkstraShortestDistancePath = new DijkstraShortestPath(distanceGraph);
-        dijkstraShortestTimePath = new DijkstraShortestPath(timeGraph);
     }
 
     public static Path findShortestDistancePath(final String startStationName, final String endStationName) {

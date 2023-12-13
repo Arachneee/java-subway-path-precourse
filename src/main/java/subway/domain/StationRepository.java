@@ -35,8 +35,8 @@ public class StationRepository {
     }
 
     public static List<Station> findAllStationByName(final List<String> shortestPath) {
-        return shortestPath.stream()
+        return Collections.unmodifiableList(shortestPath.stream()
                 .map(StationRepository::findStationByName)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 }
