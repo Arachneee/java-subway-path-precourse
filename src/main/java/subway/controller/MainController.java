@@ -1,8 +1,13 @@
 package subway.controller;
 
 
+import java.util.Arrays;
+import subway.domain.Line;
+import subway.domain.LineRepository;
 import subway.domain.MainFunction;
 import subway.domain.ReadFunction;
+import subway.domain.Section;
+import subway.domain.SectionRepository;
 import subway.domain.Station;
 import subway.domain.StationRepository;
 import subway.exception.ErrorMessage;
@@ -22,6 +27,8 @@ public class MainController {
     }
 
     public void run() {
+        init();
+
         while (true) {
             outputView.printMainFunction();
             MainFunction mainFunction = getMainFunction();
@@ -36,6 +43,39 @@ public class MainController {
         }
 
         inputView.close();
+    }
+
+    private void init() {
+        String stationNames = "교대역, 강남역, 역삼역, 남부터미널역, 양재역, 양재시민의숲역, 매봉역";
+        String lineNames = "2호선, 3호선, 신분당선";
+
+        Arrays.stream(stationNames.split(", "))
+                .map(Station::new)
+                .forEach(StationRepository::addStation);
+
+        Arrays.stream(lineNames.split(", "))
+                .map(Line::new)
+                .forEach(LineRepository::addLine);
+
+        addSection("교대역", "강남역", 2, 3);
+        addSection("강남역", "역삼역", 2, 3);
+        addSection("교대역", "남부터미널역", 3, 2);
+        addSection("남부터미널역", "양재역", 6, 5);
+        addSection("양재역", "매봉역", 1, 1);
+        addSection("강남역", "양재역", 2, 8);
+        addSection("양재역", "양재시민의숲역", 10, 3);
+    }
+
+    private void addSection(
+            final String fromStationName,
+            final String toStationName,
+            final int distance,
+            final int time) {
+
+        Station fromStation = StationRepository.findStationByName(fromStationName);
+        Station toStation = StationRepository.findStationByName(toStationName);
+        Section section = new Section(fromStation, toStation, distance, time);
+        SectionRepository.addSection(section);
     }
 
     private MainFunction getMainFunction() {
@@ -65,11 +105,11 @@ public class MainController {
             }
 
             if (readFunction.isDistance()) {
-                runDistanceFunction();
+                runDistanceFunction(startStation, endStation);
             }
 
             if (readFunction.isTime()) {
-                runTimeFunction();
+                runTimeFunction(startStation, endStation);
             }
 
             // ReadFunction is Back
@@ -83,11 +123,11 @@ public class MainController {
         });
     }
 
-    private void runDistanceFunction() {
+    private void runDistanceFunction(final Station startStation, final Station endStation) {
 
     }
 
-    private void runTimeFunction() {
+    private void runTimeFunction(final Station startStation, final Station endStation) {
 
     }
 }
