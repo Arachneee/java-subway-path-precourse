@@ -53,8 +53,10 @@ public class MainController {
             }
 
             String startStationName = inputView.readStartStation();
-            String endStationName = inputView.readEndStation();
             Station startStation = StationRepository.findStationByName(startStationName);
+            
+            String endStationName = inputView.readEndStation();
+            Station endStation = StationRepository.findStationByName(endStationName);
 
             if (readFunction.isDistance()) {
                 runDistanceFunction();
