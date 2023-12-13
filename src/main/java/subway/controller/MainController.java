@@ -66,6 +66,8 @@ public class MainController {
         addSection("양재역", "매봉역", 1, 1);
         addSection("강남역", "양재역", 2, 8);
         addSection("양재역", "양재시민의숲역", 10, 3);
+
+        PathFinder.init();
     }
 
     private void addSection(
@@ -126,10 +128,10 @@ public class MainController {
     }
 
     private void runDistanceFunction(final Station startStation, final Station endStation) {
-        Path path = PathFinder.findShortestPath(startStation.getName(), endStation.getName());
+        Path path = PathFinder.findShortestDistancePath(startStation.getName(), endStation.getName());
     }
 
     private void runTimeFunction(final Station startStation, final Station endStation) {
-
+        Path path = PathFinder.findShortestTimePath(startStation.getName(), endStation.getName());
     }
 }
